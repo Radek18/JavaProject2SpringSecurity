@@ -13,7 +13,7 @@ public class ProductService {
 
     private static Connection connection;
 
-    public ProductService () throws SQLException {
+    public ProductService() throws SQLException {
 
         connection = DriverManager.getConnection(Settings.url(), Settings.user(), Settings.password());
 
@@ -31,7 +31,7 @@ public class ProductService {
         return resultList;
     }
 
-    public Product getProduct(int id) throws Exception {
+    public static Product getProduct(int id) throws Exception {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM product WHERE id = " + id);
         if (resultSet.next()) {
@@ -40,7 +40,7 @@ public class ProductService {
         throw new Exception("Zadané ID v databázi nenalezeno!");
     }
 
-    public int saveProduct(Product product) throws SQLException {
+    public static int saveProduct(Product product) throws SQLException {
         Statement statement = connection.createStatement();
         statement.executeUpdate(
                 "INSERT INTO product(partNo, name, description, isForSale, price) VALUES(" +
@@ -52,18 +52,18 @@ public class ProductService {
         return generatedKeys.getInt(1);
     }
 
-    public void updateProductPrice(int id, BigDecimal price) throws SQLException {
+    public static void updateProductPrice(int id, BigDecimal price) throws SQLException {
         Statement statement = connection.createStatement();
         statement.executeUpdate("UPDATE product SET price = " + price + " WHERE id = " + id);
     }
 
-    public String deleteProductsNotForSale() throws SQLException {
+    public static String deleteProductsNotForSale() throws SQLException {
         Statement statement = connection.createStatement();
         int resultReturn =  statement.executeUpdate("DELETE FROM product WHERE isForSale = 0");
         return ("Odstraněno záznamů: " + resultReturn);
     }
 
-    public String deleteProduct(int id) throws SQLException {
+    public static String deleteProduct(int id) throws SQLException {
         Statement statement = connection.createStatement();
         int resultReturn = statement.executeUpdate("DELETE FROM product WHERE id = " + id);
         return ("Odstraněno záznamů: " + resultReturn);

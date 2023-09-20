@@ -10,12 +10,6 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
     @GetMapping("/products")
     public List<Product> getAllProducts() throws SQLException {
         return ProductService.getAllProducts();
@@ -23,30 +17,30 @@ public class ProductController {
 
     @GetMapping("/products/{id}")
     public Product getProduct(@PathVariable("id") int id) throws Exception {
-        return productService.getProduct(id);
+        return ProductService.getProduct(id);
     }
 
     @PostMapping("/products")
     public Product saveProduct(@RequestBody Product product) throws Exception {
-        int generatedId = productService.saveProduct(product);
+        int generatedId = ProductService.saveProduct(product);
         product.setId(generatedId);
-        return productService.getProduct(product.getId());
+        return ProductService.getProduct(product.getId());
     }
 
     @PatchMapping("/products/{id}")
     public Product updateProductPrice(@PathVariable("id") int id, @RequestParam(value = "price") BigDecimal price) throws Exception {
-        productService.updateProductPrice(id, price);
-        return productService.getProduct(id);
+        ProductService.updateProductPrice(id, price);
+        return ProductService.getProduct(id);
     }
 
     @DeleteMapping("/products")
     public String deleteProductsNotForSale() throws SQLException {
-        return productService.deleteProductsNotForSale();
+        return ProductService.deleteProductsNotForSale();
     }
 
     @DeleteMapping("/products/{id}")
     public String deleteProduct(@PathVariable("id") int id) throws Exception {
-        return productService.deleteProduct(id);
+        return ProductService.deleteProduct(id);
     }
 
     @ExceptionHandler
