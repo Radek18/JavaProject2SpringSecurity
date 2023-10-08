@@ -45,8 +45,6 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
 
         additionalParameters.put("prompt", "login");
 
-        OAuth2AuthorizationRequest.from(authorizationRequest).additionalParameters(additionalParameters).build();
-
         return OAuth2AuthorizationRequest.from(authorizationRequest).additionalParameters(additionalParameters).build();
 
     }

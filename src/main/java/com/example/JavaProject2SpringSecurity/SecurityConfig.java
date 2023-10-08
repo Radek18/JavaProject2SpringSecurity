@@ -24,7 +24,8 @@ public class SecurityConfig {
                  .authorizationEndpoint(authorization -> authorization
                      .authorizationRequestResolver(
                          new CustomAuthorizationRequestResolver(
-                             this.clientRegistrationRepository)
+                             this.clientRegistrationRepository
+                         )
                      )
                  )
             )
